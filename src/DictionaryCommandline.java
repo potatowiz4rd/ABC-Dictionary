@@ -1,3 +1,4 @@
+import java.io.IOException;
 
 public class DictionaryCommandline {
     public static void showAllWords() {
@@ -28,7 +29,14 @@ public class DictionaryCommandline {
         showAllWords();
     }
 
-    public static void main(String[] args) {
+    public static void dictionaryAdvanced() throws IOException {
+        DictionaryManagement.insertFromFile();
+        showAllWords();
+        DictionaryManagement.dictionaryLookup();
+    }
+
+    public static void main(String[] args) throws IOException {
         dictionaryBasics();
+        dictionaryAdvanced();
     }
 }
