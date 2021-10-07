@@ -1,8 +1,6 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 public class DictionaryManagement {
     static int n = 0;
@@ -25,6 +23,28 @@ public class DictionaryManagement {
 
     }
 
+    public static void addWord() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        String target = sc.nextLine();
+        String explain = sc.nextLine();
+        File file = new File("E:\\Java\\CommandLine\\Dictionary.txt");
+        FileWriter fr = new FileWriter(file, true);
+        BufferedWriter br = new BufferedWriter(fr);
+        br.newLine();
+        br.write(target + "\t");
+        br.write(explain);
+        System.out.println("New word:" + " " + target);
+        System.out.println("Meaning:" + " " + explain);
+        br.close();
+        fr.close();
+    }
+
+    public static void deleteWord() throws IOException {
+        System.out.println("Word to be deleted: ");
+        Scanner sc = new Scanner(System.in);
+        String delete = sc.nextLine();
+    }
+
     public static void dictionaryLookup() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Search for word:");
@@ -41,10 +61,8 @@ public class DictionaryManagement {
         n = sc.nextInt();
         for (int i = 0; i < n; i++) {
             Scanner sc2 = new Scanner(System.in);
-            String target;
-            String explain;
-            target = sc2.nextLine();
-            explain = sc2.nextLine();
+            String target = sc2.nextLine();
+            String explain = sc2.nextLine();
             Word result = new Word(target, explain);
             Dictionary.WordList.add(result);
         }
