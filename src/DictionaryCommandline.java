@@ -32,7 +32,8 @@ public class DictionaryCommandline {
     public static void dictionaryAdvanced() throws IOException {
         DictionaryManagement.insertFromFile();
         //showAllWords();
-        DictionaryManagement.dictionaryLookup();
+        //DictionaryManagement.dictionaryLookup();
+        DictionaryManagement.addWord();
     }
 
     public static void main(String[] args) throws IOException {
