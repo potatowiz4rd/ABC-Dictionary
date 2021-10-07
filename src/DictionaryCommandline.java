@@ -31,12 +31,11 @@ public class DictionaryCommandline {
 
     public static void dictionaryAdvanced() throws IOException {
         DictionaryManagement.insertFromFile();
-        showAllWords();
+        //showAllWords();
         DictionaryManagement.dictionaryLookup();
     }
 
     public static void main(String[] args) throws IOException {
-        dictionaryBasics();
         dictionaryAdvanced();
     }
 }
