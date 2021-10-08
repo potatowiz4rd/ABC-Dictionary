@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 public class DictionaryCommandline {
     public static void showAllWords() {
@@ -24,6 +25,18 @@ public class DictionaryCommandline {
         }
     }
 
+    public static void dictionarySearcher() {
+        System.out.print("Word searched: ");
+        Scanner sc = new Scanner(System.in);
+        String wordSearch = sc.nextLine();
+        for (int i = 0; i < Dictionary.WordList.size(); i++) {
+            //String temp = Dictionary.WordList.get(i).getWord_target();
+            if (Dictionary.WordList.get(i).getWord_target().startsWith(wordSearch)) {
+                System.out.println(Dictionary.WordList.get(i).getWord_target());
+            }
+        }
+    }
+
     public static void dictionaryBasics() {
         DictionaryManagement.insertFromCommandline();
         showAllWords();
@@ -33,10 +46,13 @@ public class DictionaryCommandline {
         DictionaryManagement.insertFromFile();
         //showAllWords();
         //DictionaryManagement.dictionaryLookup();
-        DictionaryManagement.addWord();
+        //DictionaryManagement.addWord();
+        DictionaryManagement.deleteWord();
     }
 
     public static void main(String[] args) throws IOException {
         dictionaryAdvanced();
+        //showAllWords();
+        //dictionarySearcher();
     }
 }

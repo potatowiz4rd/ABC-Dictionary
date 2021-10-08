@@ -42,7 +42,23 @@ public class DictionaryManagement {
     public static void deleteWord() throws IOException {
         System.out.println("Word to be deleted: ");
         Scanner sc = new Scanner(System.in);
-        String delete = sc.nextLine();
+        String delete = sc.nextLine() + "\t";
+
+        File inputFile = new File("E:\\Java\\CommandLine\\Dictionary.txt");
+        File tempFile = new File("E:\\Java\\CommandLine\\tempFile.txt");
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        String line;
+        while((line = reader.readLine()) != null) {
+            if (line.startsWith(delete)) {
+                continue;
+            }
+            writer.write(line + "\n");
+        }
+        writer.close();
+        reader.close();
+        inputFile.delete();
+        tempFile.renameTo(inputFile);
     }
 
     public static void dictionaryLookup() {
