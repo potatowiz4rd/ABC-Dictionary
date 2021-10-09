@@ -7,7 +7,7 @@ public class DictionaryManagement {
 
     public static void insertFromFile() throws IOException {
         ArrayList<String> wordsFromFile = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("E:\\Java\\CommandLine\\Dictionary.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
         String line;
         while ((line = reader.readLine()) != null) {
             wordsFromFile.add(line);
@@ -16,7 +16,7 @@ public class DictionaryManagement {
 
         for (int i = 0; i < wordsFromFile.size(); i++) {
             String[] str = wordsFromFile.get(i).split("\t");
-            Word result = new Word(str[0], str[1]);
+            Word result = new Word(str[0].trim(), str[1].trim());
             Dictionary.WordList.add(result);
             System.out.println(Dictionary.WordList.get(i).getWord_target() + "\t" + Dictionary.WordList.get(i).getWord_explain());
         }
@@ -27,14 +27,14 @@ public class DictionaryManagement {
         Scanner sc = new Scanner(System.in);
         String target = sc.nextLine();
         String explain = sc.nextLine();
-        File file = new File("E:\\Java\\CommandLine\\Dictionary.txt");
+        File file = new File("dictionaries.txt");
         FileWriter fr = new FileWriter(file, true);
         BufferedWriter br = new BufferedWriter(fr);
         br.newLine();
-        br.write(target + "\t");
-        br.write(explain);
-        System.out.println("New word:" + " " + target);
-        System.out.println("Meaning:" + " " + explain);
+        br.write(target.trim() + "\t");
+        br.write(explain.trim());
+        System.out.println("New word:" + " " + target.trim());
+        System.out.println("Meaning:" + " " + explain.trim());
         System.out.println("Dictionary updated!");
         br.close();
         fr.close();
@@ -43,14 +43,14 @@ public class DictionaryManagement {
     public static void deleteWord() throws IOException {
         System.out.println("Word to be deleted: ");
         Scanner sc = new Scanner(System.in);
-        String delete = sc.nextLine() + "\t";
+        String delete = sc.nextLine().trim();
 
-        File inputFile = new File("E:\\Java\\CommandLine\\Dictionary.txt");
-        File tempFile = new File("E:\\Java\\CommandLine\\tempFile.txt");
+        File inputFile = new File("dictionaries.txt");
+        File tempFile = new File("tempFile.txt");
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile, true));
         String line;
-        while((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             if (line.startsWith(delete)) {
                 continue;
             }
