@@ -1,0 +1,10 @@
+apple	quả táo
+hello	xin chào
+goodbye	tạm biệt
+three	ba
+destroy	tiêu diệt
+victory	chiến thắng
+chicken	con gà
+one	một
+five	năm
+six	sáu
