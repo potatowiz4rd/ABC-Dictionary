@@ -35,6 +35,7 @@ public class DictionaryManagement {
         br.write(explain);
         System.out.println("New word:" + " " + target);
         System.out.println("Meaning:" + " " + explain);
+        System.out.println("Dictionary updated!");
         br.close();
         fr.close();
     }
@@ -59,6 +60,7 @@ public class DictionaryManagement {
         reader.close();
         inputFile.delete();
         tempFile.renameTo(inputFile);
+        System.out.println("Dictionary updated!");
     }
 
     public static void dictionaryLookup() {

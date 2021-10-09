@@ -45,14 +45,33 @@ public class DictionaryCommandline {
     public static void dictionaryAdvanced() throws IOException {
         DictionaryManagement.insertFromFile();
         //showAllWords();
-        //DictionaryManagement.dictionaryLookup();
-        //DictionaryManagement.addWord();
-        DictionaryManagement.deleteWord();
+        System.out.println("Please select your course of action: ");
+        System.out.println("1. Lookup" + "\t" + "2. Search" + "\t" + "3. Add" + "\t" + "4. Delete" + "\t" + "5. Exit");
+
+        while(true) {
+            System.out.print("\n" + "Your action: ");
+            Scanner sc = new Scanner(System.in);
+            String command = sc.nextLine();
+            if (command.equals("1")) {
+                DictionaryManagement.dictionaryLookup();
+            }
+            if (command.equals("2")) {
+                dictionarySearcher();
+            }
+            if (command.equals("3")) {
+                DictionaryManagement.addWord();
+            }
+            if (command.equals("4")) {
+                DictionaryManagement.deleteWord();
+            }
+            if (command.equals("5")) {
+                System.out.println("Exiting the program...");
+                break;
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
         dictionaryAdvanced();
-        //showAllWords();
-        //dictionarySearcher();
     }
 }
