@@ -21,30 +21,50 @@ import java.util.stream.Collectors;
 
 
 public class DictionaryController implements Initializable {
-    ArrayList<String> words = new ArrayList<>(
-            Arrays.asList("test", "dog","Human", "Days of our life", "The best day",
-                    "Friends", "Animal", "Human", "Humans", "Bear", "Life",
-                    "This is some text", "Words", "222", "Bird", "Dog", "A few words",
-                    "Subscribe!", "SoftwareEngineeringStudent", "You got this!!",
-                    "Super Human", "Super", "Like")
-    );
+
+
+    private String[] str = Dictionary.WordTargets.toArray(new String[10]);
 
     @FXML
     private TextField searchBar;
 
     @FXML
-    private ListView<String> wordView;
+    private ListView<String> myListView;
 
     @FXML
-    void search(ActionEvent event) {
-        wordView.getItems().clear();
-        wordView.getItems().addAll(searchList(searchBar.getText(),words));
+    void search(ActionEvent event) throws IOException {
+        myListView.getItems().clear();
+        myListView.getItems().addAll(searchList(searchBar.getText(), Dictionary.WordTargets));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        wordView.getItems().addAll(words);
+        try {
+            ArrayList<String> wordsFromFile = new ArrayList<>();
+            BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                wordsFromFile.add(line);
+            }
+            reader.close();
+
+            for (int i = 0; i < wordsFromFile.size(); i++) {
+                String[] str = wordsFromFile.get(i).split("\t");
+                Word result = new Word(str[0].trim(), str[1].trim());
+                Dictionary.WordTargets.add(i, str[0]);
+                Dictionary.WordExplains.add(i, str[1]);
+                Dictionary.WordList.add(result);
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        populateData();
     }
+
+    private void populateData() {
+        myListView.getItems().addAll(Dictionary.WordTargets);
+    }
+
 
     private List<String> searchList(String searchWords, List<String> listOfStrings) {
 
@@ -55,6 +75,7 @@ public class DictionaryController implements Initializable {
                     input.toLowerCase().contains(word.toLowerCase()));
         }).collect(Collectors.toList());
     }
+
     Stage stage;
     Scene scene;
 
