@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController">
+    <children>
+        <TextField fx:id="searchBar" layoutX="14.0" layoutY="23.0" prefHeight="39.0" prefWidth="210.0" />
+        <ListView fx:id="wordView" layoutX="14.0" layoutY="63.0" prefHeight="513.0" prefWidth="285.0" />
+        <Button layoutX="224.0" layoutY="23.0" mnemonicParsing="false" onAction="#search" prefHeight="39.0" prefWidth="75.0" text="Search" />
+      <Button layoutX="640.0" layoutY="531.0" mnemonicParsing="false" onAction="#switchToSceneAdd" prefHeight="45.0" prefWidth="108.0" text="Add a word">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+      <Button layoutX="757.0" layoutY="531.0" mnemonicParsing="false" onAction="#switchToSceneDelete" prefHeight="45.0" prefWidth="123.0" text="Delete a word">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+    </children>
+</AnchorPane>

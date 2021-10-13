@@ -1,8 +1,13 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,8 +19,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class DictionaryController implements Initializable {
 
+public class DictionaryController implements Initializable {
     ArrayList<String> words = new ArrayList<>(
             Arrays.asList("test", "dog","Human", "Days of our life", "The best day",
                     "Friends", "Animal", "Human", "Humans", "Bear", "Life",
@@ -23,23 +28,7 @@ public class DictionaryController implements Initializable {
                     "Subscribe!", "SoftwareEngineeringStudent", "You got this!!",
                     "Super Human", "Super", "Like")
     );
-    /*
-    public String[] str;
-    public static void insertFromFile() throws IOException {
-        ArrayList<String> wordsFromFile = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            wordsFromFile.add(line);
-        }
-        reader.close();
-       // ArrayList<String> words = new ArrayList<>();
-        for (int i = 0; i < wordsFromFile.size(); i++) {
-            String[] str = wordsFromFile.get(i).split("\t");
-           // words.add(str[0]);
-        }
-    }
-    */
+
     @FXML
     private TextField searchBar;
 
@@ -47,7 +36,7 @@ public class DictionaryController implements Initializable {
     private ListView<String> wordView;
 
     @FXML
-    void search(ActionEvent event) throws IOException {
+    void search(ActionEvent event) {
         wordView.getItems().clear();
         wordView.getItems().addAll(searchList(searchBar.getText(),words));
     }
@@ -66,4 +55,29 @@ public class DictionaryController implements Initializable {
                     input.toLowerCase().contains(word.toLowerCase()));
         }).collect(Collectors.toList());
     }
+    Stage stage;
+    Scene scene;
+
+    @FXML
+    void switchToSceneAdd(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("SceneAdd.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            System.out.println("Can't open");
+        }
+    }
+
+    @FXML
+    void switchToSceneDelete(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("SceneDelete.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
+
