@@ -5,22 +5,25 @@ import java.util.Scanner;
 public class DictionaryManagement {
     static int n = 0;
 
-    public static void insertFromFile() throws IOException {
-        ArrayList<String> wordsFromFile = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            wordsFromFile.add(line);
-        }
-        reader.close();
+    public static void insertFromFile() {
+        try {
+            ArrayList<String> wordsFromFile = new ArrayList<>();
+            BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                wordsFromFile.add(line);
+            }
+            reader.close();
 
-        for (int i = 0; i < wordsFromFile.size(); i++) {
-            String[] str = wordsFromFile.get(i).split("\t");
-            Word result = new Word(str[0].trim(), str[1].trim());
-            Dictionary.WordList.add(result);
-            System.out.println(Dictionary.WordList.get(i).getWord_target() + "\t" + Dictionary.WordList.get(i).getWord_explain());
+            for (int i = 0; i < wordsFromFile.size(); i++) {
+                String[] str = wordsFromFile.get(i).split("\t");
+                Word result = new Word(str[0].trim(), str[1].trim());
+                Dictionary.WordList.add(result);
+                System.out.println(Dictionary.WordList.get(i).getWord_target() + "\t" + Dictionary.WordList.get(i).getWord_explain());
+            }
+        } catch (IOException ex) {
+            System.out.println("Can't load!!!!");
         }
-
     }
 
     public static void addWord() throws IOException {

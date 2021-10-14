@@ -2,11 +2,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -29,7 +30,7 @@ public class DictionaryController implements Initializable {
     private TextField searchBar;
 
     @FXML
-    private ListView<String> myListView;
+    public ListView<String> myListView;
 
     @FXML
     void search(ActionEvent event) throws IOException {
@@ -65,7 +66,6 @@ public class DictionaryController implements Initializable {
         myListView.getItems().addAll(Dictionary.WordTargets);
     }
 
-
     private List<String> searchList(String searchWords, List<String> listOfStrings) {
 
         List<String> searchWordsArray = Arrays.asList(searchWords.trim().split(" "));
@@ -79,14 +79,21 @@ public class DictionaryController implements Initializable {
     Stage stage;
     Scene scene;
 
+    @FXML Button addButton;
+    @FXML Button deleteButton;
+
     @FXML
-    void switchToSceneAdd(ActionEvent event) {
+    private void switchToSceneAdd(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("SceneAdd.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            if (event.getSource() == addButton) {
+                Parent root = FXMLLoader.load(getClass().getResource("SceneAdd.fxml"));
+                stage = new Stage();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.initOwner(addButton.getScene().getWindow());
+                stage.showAndWait();
+            }
         } catch (IOException ex) {
             System.out.println("Can't open");
         }
@@ -94,11 +101,15 @@ public class DictionaryController implements Initializable {
 
     @FXML
     void switchToSceneDelete(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("SceneDelete.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (event.getSource() == deleteButton) {
+            Parent root = FXMLLoader.load(getClass().getResource("SceneDelete.fxml"));
+            stage = new Stage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(deleteButton.getScene().getWindow());
+        }
     }
 }
 
