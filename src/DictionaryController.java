@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -31,6 +32,15 @@ public class DictionaryController implements Initializable {
 
     @FXML
     public ListView<String> myListView;
+
+    @FXML
+    private TextField ExplainField;
+
+    @FXML
+    private void displaySelected(MouseEvent event) {
+        searchBar.setText(myListView.getSelectionModel().getSelectedItem().toString());
+        ExplainField.setText(DictionaryManagement.dictionaryLookup(myListView.getSelectionModel().getSelectedItem().toString()));
+    }
 
     @FXML
     void search(ActionEvent event) throws IOException {
@@ -79,9 +89,13 @@ public class DictionaryController implements Initializable {
     Stage stage;
     Scene scene;
 
-    @FXML Button addButton;
-    @FXML Button deleteButton;
+    @FXML Button addButton; //nút chuyển sang cảnh thêm từ.
+    @FXML Button deleteButton;  //nút chuyển sang cảnh xóa từ.
 
+    /**
+     * Chuyển sang cảnh thêm từ.
+     * @param event : hành đông.
+     */
     @FXML
     private void switchToSceneAdd(ActionEvent event) {
         try {
@@ -99,6 +113,10 @@ public class DictionaryController implements Initializable {
         }
     }
 
+    /**
+     * Chuyển sang cảnh xóa từ.
+     * @param event : hành động.
+     */
     @FXML
     void switchToSceneDelete(ActionEvent event) {
         try {

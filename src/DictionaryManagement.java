@@ -82,7 +82,16 @@ public class DictionaryManagement extends Dictionary{
         System.out.println("Dictionary updated!");
     }
 
-    public static void dictionaryLookup() {
+    public static String dictionaryLookup(String target) {
+        for (int i = 0; i < Dictionary.WordTargets.size(); i++) {
+            if (Dictionary.WordTargets.get(i).toLowerCase().equals(target.toLowerCase())) {
+                return Dictionary.WordExplains.get(i);
+            }
+        }
+        return null;
+    }
+
+    public static void dictionaryCommandlineLookup() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Search for word:");
         String wordLookup = sc.nextLine();

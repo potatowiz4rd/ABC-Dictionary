@@ -11,6 +11,11 @@ public class DictionaryApplication extends Application {
         launch(args);
     }
 
+    /**
+     * Khởi tạo màn hình chính.
+     * @param primaryStage - màn hình chính.
+     * @throws Exception -handle.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("fxmlScene/SceneMain.fxml"));

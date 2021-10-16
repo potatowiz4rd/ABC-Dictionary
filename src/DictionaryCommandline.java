@@ -53,7 +53,7 @@ public class DictionaryCommandline {
             Scanner sc = new Scanner(System.in);
             String command = sc.nextLine();
             if (command.equals("1")) {
-                DictionaryManagement.dictionaryLookup();
+                DictionaryManagement.dictionaryCommandlineLookup();
             }
             if (command.equals("2")) {
                 dictionarySearcher();
