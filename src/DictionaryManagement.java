@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DictionaryManagement extends Dictionary{
+public class DictionaryManagement {
 
     static int n = 0;
 
@@ -12,15 +12,17 @@ public class DictionaryManagement extends Dictionary{
             BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
-                wordsFromFile.add(line);
+                if (line.length() > 0 && line.contains("@")) {
+                    wordsFromFile.add(line);
+                }
             }
             reader.close();
 
             for (int i = 0; i < wordsFromFile.size(); i++) {
-                String[] str = wordsFromFile.get(i).split("\t");
+                String[] str = wordsFromFile.get(i).split("@");
                 Word result = new Word(str[0].trim(), str[1].trim());
                 Dictionary.WordList.add(result);
-                System.out.println(Dictionary.WordList.get(i).getWord_target() + "\t" + Dictionary.WordList.get(i).getWord_explain());
+                System.out.println(Dictionary.WordList.get(i).getWord_target() + "@" + Dictionary.WordList.get(i).getWord_explain());
             }
         } catch (IOException ex) {
             System.out.println("Can't load!!!!");
@@ -32,9 +34,9 @@ public class DictionaryManagement extends Dictionary{
         try {
             FileWriter write = new FileWriter("dictionaries.txt");
             writer = new PrintWriter(write);
-            for (int i = 0; i < WordList.size(); i++) {
-                Word outfile = WordList.get(i);
-                writer.println(outfile.getWord_target() + "\t" + outfile.getWord_explain());
+            for (int i = 0; i < Dictionary.WordList.size(); i++) {
+                Word outfile = Dictionary.WordList.get(i);
+                writer.println(outfile.getWord_target() + "@" + outfile.getWord_explain());
             }
             writer.close();
         } catch (IOException ex) {
@@ -50,7 +52,7 @@ public class DictionaryManagement extends Dictionary{
         FileWriter fr = new FileWriter(file, true);
         BufferedWriter br = new BufferedWriter(fr);
         br.newLine();
-        br.write(target.trim() + "\t");
+        br.write(target.trim() + "@");
         br.write(explain.trim());
         System.out.println("New word:" + " " + target.trim());
         System.out.println("Meaning:" + " " + explain.trim());
@@ -89,17 +91,6 @@ public class DictionaryManagement extends Dictionary{
             }
         }
         return null;
-    }
-
-    public static void dictionaryCommandlineLookup() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Search for word:");
-        String wordLookup = sc.nextLine();
-        for (int i = 0; i < Dictionary.WordList.size(); i++) {
-            if (wordLookup.equals(Dictionary.WordList.get(i).getWord_target())) {
-                System.out.println(Dictionary.WordList.get(i).getWord_explain());
-            }
-        }
     }
 
     public static void insertFromCommandline() {

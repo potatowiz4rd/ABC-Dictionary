@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class DictionaryAddWord extends Dictionary {
+public class DictionaryAddWord {
     @FXML
     Button add_button;
     @FXML
@@ -19,8 +19,8 @@ public class DictionaryAddWord extends Dictionary {
 
     public static List<String> addTheWord(String addWord_target, String addWord_explain) {
         Word addNewWord = new Word(addWord_target, addWord_explain);
-        WordList.add(addNewWord);
-        for (Word word : WordList) {
+        Dictionary.WordList.add(addNewWord);
+        for (Word word : Dictionary.WordList) {
             addUp.add(word.getWord_target());
         }
         return addUp;

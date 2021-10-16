@@ -21,6 +21,6 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <TextField fx:id="ExplainField" layoutX="323.0" layoutY="63.0" prefHeight="464.0" prefWidth="563.0" />
+        <TextField fx:id="ExplainField" alignment="TOP_LEFT" layoutX="323.0" layoutY="63.0" prefHeight="464.0" prefWidth="563.0" />
     </children>
 </AnchorPane>

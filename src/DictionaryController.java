@@ -24,8 +24,6 @@ import java.util.stream.Collectors;
 public class DictionaryController implements Initializable {
     public static List<String> wordArray = new ArrayList<>();
 
-    private String[] str = Dictionary.WordTargets.toArray(new String[10]);
-
     @FXML
     private TextField searchBar;
 
@@ -48,27 +46,20 @@ public class DictionaryController implements Initializable {
     }
 
     @FXML
-    public void search() {
-        String wordSearch = searchBar.getText().toString();
-        List<String> s = dictionarySearch(wordSearch);
-        ObservableList<String> input = FXCollections.observableArrayList(s);
-        myListView.setItems(input);
-        wordArray.clear();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void InsertFromFile() throws IOException {
         try {
             ArrayList<String> wordsFromFile = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
-                wordsFromFile.add(line);
+                if (line.length() > 0 && line.contains("@")) {
+                    wordsFromFile.add(line);
+                }
             }
             reader.close();
 
             for (int i = 0; i < wordsFromFile.size(); i++) {
-                String[] str = wordsFromFile.get(i).split("\t");
+                String[] str = wordsFromFile.get(i).split("@");
                 Word result = new Word(str[0].trim(), str[1].trim());
                 Dictionary.WordTargets.add(i, str[0]);
                 Dictionary.WordExplains.add(i, str[1]);
@@ -77,21 +68,40 @@ public class DictionaryController implements Initializable {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    @FXML
+    public void search() {
+        String wordSearch = searchBar.getText().toString();
+        List<String> s = dictionarySearch(wordSearch);
+        ObservableList<String> input = FXCollections.observableArrayList(s);
+        myListView.setItems(input);
+        wordArray.clear();
+    }
+
+    @FXML
+    public static List<String> dictionarySearch(String wordSearch) {
+        for (int i = 0; i < Dictionary.WordList.size(); i++) {
+            if (Dictionary.WordTargets.get(i).toLowerCase().startsWith(wordSearch)) {
+                wordArray.add(Dictionary.WordTargets.get(i));
+            }
+        }
+        Collections.sort(wordArray);
+        return wordArray;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            InsertFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         populateData();
     }
 
     private void populateData() {
         myListView.getItems().addAll(Dictionary.WordTargets);
-    }
-
-    public static List<String> dictionarySearch(String wordSearch) {
-        for (int i = 0; i < Dictionary.WordList.size(); i++) {
-            if (Dictionary.WordList.get(i).getWord_target().startsWith(wordSearch)) {
-                wordArray.add(Dictionary.WordList.get(i).getWord_target());
-            }
-        }
-        Collections.sort(wordArray);
-        return wordArray;
     }
 
     Stage stage;
