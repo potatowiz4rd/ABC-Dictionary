@@ -86,7 +86,7 @@ public class DictionaryController implements Initializable {
     private void switchToSceneAdd(ActionEvent event) {
         try {
             if (event.getSource() == addButton) {
-                Parent root = FXMLLoader.load(getClass().getResource("SceneAdd.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("fxmlScene/SceneAdd.fxml"));
                 stage = new Stage();
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -100,15 +100,19 @@ public class DictionaryController implements Initializable {
     }
 
     @FXML
-    void switchToSceneDelete(ActionEvent event) throws IOException {
-        if (event.getSource() == deleteButton) {
-            Parent root = FXMLLoader.load(getClass().getResource("SceneDelete.fxml"));
-            stage = new Stage();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.showAndWait();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(deleteButton.getScene().getWindow());
+    void switchToSceneDelete(ActionEvent event) {
+        try {
+            if (event.getSource() == deleteButton) {
+                Parent root = FXMLLoader.load(getClass().getResource("fxmlScene/SceneDelete.fxml"));
+                stage = new Stage();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.showAndWait();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.initOwner(deleteButton.getScene().getWindow());
+            }
+        } catch (IOException ex) {
+            System.out.println("Can't open");
         }
     }
 }

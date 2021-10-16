@@ -2,7 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DictionaryManagement {
+public class DictionaryManagement extends Dictionary{
+
     static int n = 0;
 
     public static void insertFromFile() {
@@ -23,6 +24,21 @@ public class DictionaryManagement {
             }
         } catch (IOException ex) {
             System.out.println("Can't load!!!!");
+        }
+    }
+
+    public static void exportToFile() {
+        PrintWriter writer = null;
+        try {
+            FileWriter write = new FileWriter("dictionaries.txt");
+            writer = new PrintWriter(write);
+            for (int i = 0; i < WordList.size(); i++) {
+                Word outfile = WordList.get(i);
+                writer.println(outfile.getWord_target() + "\t" + outfile.getWord_explain());
+            }
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 

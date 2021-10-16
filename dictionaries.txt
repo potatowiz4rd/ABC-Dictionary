@@ -1,10 +1,20 @@
 apple	quả táo
 hello	xin chào
 goodbye	tạm biệt
-three	ba
 destroy	tiêu diệt
 victory	chiến thắng
 chicken	con gà
 one	một
 five	năm
 six	sáu
+ten	mười
+elevent	mười một
+another	một cái khác
+hi	xin chào (tương tự -hello)
+dog	con chó
+cat	con mèo
+monkey	con khỉ
+human	con người
+go	(v): đi
+phone	điện thoại
+three	số ba
