@@ -1,3 +1,5 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,15 +17,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class DictionaryController implements Initializable {
-
+    public static List<String> wordArray = new ArrayList<>();
 
     private String[] str = Dictionary.WordTargets.toArray(new String[10]);
 
@@ -43,9 +42,18 @@ public class DictionaryController implements Initializable {
     }
 
     @FXML
-    void search(ActionEvent event) throws IOException {
-        myListView.getItems().clear();
-        myListView.getItems().addAll(searchList(searchBar.getText(), Dictionary.WordTargets));
+    void lookup(ActionEvent event) throws IOException {
+        String wordLookup = searchBar.getText();
+        ExplainField.setText(DictionaryManagement.dictionaryLookup(wordLookup));
+    }
+
+    @FXML
+    public void search() {
+        String wordSearch = searchBar.getText().toString();
+        List<String> s = dictionarySearch(wordSearch);
+        ObservableList<String> input = FXCollections.observableArrayList(s);
+        myListView.setItems(input);
+        wordArray.clear();
     }
 
     @Override
@@ -76,26 +84,24 @@ public class DictionaryController implements Initializable {
         myListView.getItems().addAll(Dictionary.WordTargets);
     }
 
-    private List<String> searchList(String searchWords, List<String> listOfStrings) {
-
-        List<String> searchWordsArray = Arrays.asList(searchWords.trim().split(" "));
-
-        return listOfStrings.stream().filter(input -> {
-            return searchWordsArray.stream().allMatch(word ->
-                    input.toLowerCase().contains(word.toLowerCase()));
-        }).collect(Collectors.toList());
+    public static List<String> dictionarySearch(String wordSearch) {
+        for (int i = 0; i < Dictionary.WordList.size(); i++) {
+            if (Dictionary.WordList.get(i).getWord_target().startsWith(wordSearch)) {
+                wordArray.add(Dictionary.WordList.get(i).getWord_target());
+            }
+        }
+        Collections.sort(wordArray);
+        return wordArray;
     }
 
     Stage stage;
     Scene scene;
 
-    @FXML Button addButton; //nút chuyển sang cảnh thêm từ.
-    @FXML Button deleteButton;  //nút chuyển sang cảnh xóa từ.
+    @FXML
+    Button addButton; //nút chuyển sang cảnh thêm từ.
+    @FXML
+    Button deleteButton;  //nút chuyển sang cảnh xóa từ.
 
-    /**
-     * Chuyển sang cảnh thêm từ.
-     * @param event : hành đông.
-     */
     @FXML
     private void switchToSceneAdd(ActionEvent event) {
         try {
@@ -113,10 +119,6 @@ public class DictionaryController implements Initializable {
         }
     }
 
-    /**
-     * Chuyển sang cảnh xóa từ.
-     * @param event : hành động.
-     */
     @FXML
     void switchToSceneDelete(ActionEvent event) {
         try {

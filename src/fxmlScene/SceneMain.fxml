@@ -9,9 +9,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController">
     <children>
-        <TextField fx:id="searchBar" layoutX="14.0" layoutY="23.0" prefHeight="39.0" prefWidth="210.0" />
+        <TextField fx:id="searchBar" layoutX="14.0" layoutY="23.0" onKeyReleased="#search" prefHeight="39.0" prefWidth="285.0" />
         <ListView fx:id="myListView" layoutX="14.0" layoutY="63.0" onMouseClicked="#displaySelected" prefHeight="513.0" prefWidth="285.0" />
-        <Button layoutX="224.0" layoutY="23.0" mnemonicParsing="false" onAction="#search" prefHeight="39.0" prefWidth="75.0" text="Search" />
+        <Button layoutX="323.0" layoutY="23.0" mnemonicParsing="false" onAction="#lookup" prefHeight="39.0" prefWidth="108.0" text="Get Meaning" />
         <Button fx:id="addButton" layoutX="640.0" layoutY="531.0" mnemonicParsing="false" onAction="#switchToSceneAdd" prefHeight="45.0" prefWidth="108.0" text="Add a word">
             <font>
                 <Font size="16.0" />
@@ -21,6 +21,6 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <TextField fx:id="ExplainField" layoutX="323.0" layoutY="63.0" prefHeight="453.0" prefWidth="563.0" />
+        <TextField fx:id="ExplainField" layoutX="323.0" layoutY="63.0" prefHeight="464.0" prefWidth="563.0" />
     </children>
 </AnchorPane>
