@@ -6,9 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,11 +16,25 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import javax.speech.AudioException;
+import javax.speech.EngineException;
+import javax.swing.*;
 import java.util.stream.Collectors;
+
+import java.util.Locale;
+import javax.speech.Central;
+import javax.speech.synthesis.Synthesizer;
+import javax.speech.synthesis.SynthesizerModeDesc;
+
+import com.darkprograms.speech.translator.GoogleTranslate;
 
 
 public class DictionaryController implements Initializable {
     public static List<String> wordArray = new ArrayList<>();
+
+    @FXML
+    private ComboBox<String> Language;
+    private ObservableList<String> languageList = FXCollections.observableArrayList("VI", "JA", "RU", "FR");
 
     @FXML
     private TextField searchBar;
@@ -31,7 +43,12 @@ public class DictionaryController implements Initializable {
     public ListView<String> myListView;
 
     @FXML
-    private TextField ExplainField;
+    private TextArea ExplainField;
+
+    @FXML
+    private Button voice;
+    @FXML
+    private Button GGTranslate;
 
     @FXML
     private void displaySelected(MouseEvent event) {
@@ -43,6 +60,36 @@ public class DictionaryController implements Initializable {
     void lookup(ActionEvent event) throws IOException {
         String wordLookup = searchBar.getText();
         ExplainField.setText(DictionaryManagement.dictionaryLookup(wordLookup));
+    }
+
+    @FXML
+    public void textToSpeech() throws EngineException, AudioException, InterruptedException {
+        String wordSpeech = searchBar.getText();
+            System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
+            Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
+
+            Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
+
+            synthesizer.allocate();
+            synthesizer.resume();
+
+            synthesizer.speakPlainText(wordSpeech,null);
+            synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+
+            //Deallocate synthesizer
+            //synthesizer.deallocate();
+    }
+
+    @FXML
+    public void translation() {
+        String selectedLanguage = Language.getSelectionModel().getSelectedItem().toLowerCase();
+        try {
+            String meaning = GoogleTranslate.translate(selectedLanguage, searchBar.getText());
+            ExplainField.clear();
+            ExplainField.setText(meaning);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -98,6 +145,8 @@ public class DictionaryController implements Initializable {
             e.printStackTrace();
         }
         populateData();
+        Language.setItems(languageList);
+
     }
 
     private void populateData() {

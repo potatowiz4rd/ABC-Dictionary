@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="GoogleAPI_Translate">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/src/GoogleAPI_Translate" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/src/GoogleAPI_Translate" recursive="false" />
+  </library>
+</component>
