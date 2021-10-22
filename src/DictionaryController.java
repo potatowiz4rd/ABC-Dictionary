@@ -53,8 +53,17 @@ public class DictionaryController implements Initializable {
     @FXML
     private void displaySelected(MouseEvent event) {
         searchBar.setText(myListView.getSelectionModel().getSelectedItem().toString());
-        ExplainField.setText(DictionaryManagement.dictionaryLookup(myListView.getSelectionModel().getSelectedItem().toString()));
+        //ExplainField.setText(DictionaryManagement.dictionaryLookup(myListView.getSelectionModel().getSelectedItem().toString()));
+        String word = searchBar.getText();
+        InternetConnection ic = new InternetConnection();
+        String data = ic.getOnlineData(word);
+        if (data.equalsIgnoreCase("error")) {
+            ExplainField.setText("Word not found!");
+        } else {
+            ExplainField.setText(data);
+        }
     }
+
 
     @FXML
     void lookup(ActionEvent event) throws IOException {
@@ -62,22 +71,23 @@ public class DictionaryController implements Initializable {
         ExplainField.setText(DictionaryManagement.dictionaryLookup(wordLookup));
     }
 
+
     @FXML
     public void textToSpeech() throws EngineException, AudioException, InterruptedException {
         String wordSpeech = searchBar.getText();
-            System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
-            Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
+        System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
+        Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
 
-            Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
+        Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
 
-            synthesizer.allocate();
-            synthesizer.resume();
+        synthesizer.allocate();
+        synthesizer.resume();
 
-            synthesizer.speakPlainText(wordSpeech,null);
-            synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+        synthesizer.speakPlainText(wordSpeech, null);
+        synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
 
-            //Deallocate synthesizer
-            //synthesizer.deallocate();
+        //Deallocate synthesizer
+        //synthesizer.deallocate();
     }
 
     @FXML
@@ -92,30 +102,54 @@ public class DictionaryController implements Initializable {
         }
     }
 
+    /**
+     * @throws IOException
+     * @FXML private void InsertFromFile() throws IOException {
+     * try {
+     * ArrayList<String> wordsFromFile = new ArrayList<>();
+     * BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
+     * String line;
+     * while ((line = reader.readLine()) != null) {
+     * if (line.length() > 0 && line.contains("@")) {
+     * wordsFromFile.add(line);
+     * }
+     * }
+     * reader.close();
+     * <p>
+     * for (int i = 0; i < wordsFromFile.size(); i++) {
+     * String[] str = wordsFromFile.get(i).split("@");
+     * Word result = new Word(str[0].trim(), str[1].trim());
+     * Dictionary.WordTargets.add(i, str[0]);
+     * Dictionary.WordExplains.add(i, str[1]);
+     * Dictionary.WordList.add(result);
+     * }
+     * } catch (IOException e) {
+     * System.out.println(e);
+     * }
+     * }
+     */
+
     @FXML
     private void InsertFromFile() throws IOException {
         try {
             ArrayList<String> wordsFromFile = new ArrayList<>();
-            BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("dictionaries2.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.length() > 0 && line.contains("@")) {
+                if (line.length() > 0) {
                     wordsFromFile.add(line);
                 }
             }
             reader.close();
 
             for (int i = 0; i < wordsFromFile.size(); i++) {
-                String[] str = wordsFromFile.get(i).split("@");
-                Word result = new Word(str[0].trim(), str[1].trim());
-                Dictionary.WordTargets.add(i, str[0]);
-                Dictionary.WordExplains.add(i, str[1]);
-                Dictionary.WordList.add(result);
+                Dictionary.WordTargets.add(i, wordsFromFile.get(i));
             }
         } catch (IOException e) {
             System.out.println(e);
         }
     }
+
 
     @FXML
     public void search() {
@@ -126,9 +160,10 @@ public class DictionaryController implements Initializable {
         wordArray.clear();
     }
 
+
     @FXML
     public static List<String> dictionarySearch(String wordSearch) {
-        for (int i = 0; i < Dictionary.WordList.size(); i++) {
+        for (int i = 0; i < Dictionary.WordTargets.size(); i++) {
             if (Dictionary.WordTargets.get(i).toLowerCase().startsWith(wordSearch)) {
                 wordArray.add(Dictionary.WordTargets.get(i));
             }
@@ -137,14 +172,24 @@ public class DictionaryController implements Initializable {
         return wordArray;
     }
 
+    @FXML
+    private void onlineSearch(ActionEvent event) {
+        String word = searchBar.getText();
+        InternetConnection ic = new InternetConnection();
+        String data = ic.getOnlineData(word);
+        ExplainField.setText(data);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         try {
             InsertFromFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
         populateData();
+
         Language.setItems(languageList);
 
     }
