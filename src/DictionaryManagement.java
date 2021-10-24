@@ -3,6 +3,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DictionaryManagement {
+    /**
+     * Xuất từ ra file.
+     */
+    public static void exportToFile() {
+        PrintWriter writer = null;
+        try {
+            FileWriter write = new FileWriter("dictionaries.txt");
+            writer = new PrintWriter(write);
+            for (int i = 0; i < Dictionary.WordList.size(); i++) {
+                Word outfile = Dictionary.WordList.get(i);
+                writer.println(outfile.getWord_target() + "@" + outfile.getWord_explain());
+            }
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     static int n = 0;
 
@@ -26,21 +43,6 @@ public class DictionaryManagement {
             }
         } catch (IOException ex) {
             System.out.println("Can't load!!!!");
-        }
-    }
-
-    public static void exportToFile() {
-        PrintWriter writer = null;
-        try {
-            FileWriter write = new FileWriter("dictionaries.txt");
-            writer = new PrintWriter(write);
-            for (int i = 0; i < Dictionary.WordList.size(); i++) {
-                Word outfile = Dictionary.WordList.get(i);
-                writer.println(outfile.getWord_target() + "@" + outfile.getWord_explain());
-            }
-            writer.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 

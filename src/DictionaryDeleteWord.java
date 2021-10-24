@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DictionaryDeleteWord extends Dictionary {
+    /**
+     * Hàm xóa từ.
+     * @param event delete a word.
+     */
     public void applicationDeleteWord(ActionEvent event) {
         String del = fieldDeleteTarget.getText();
         if (event.getSource() == delete_button) {
@@ -18,7 +22,7 @@ public class DictionaryDeleteWord extends Dictionary {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("HEY!");
             alert.setHeaderText(null);
-            alert.setContentText("Từ " + '"' + del + '"' + " đã được xóa. Danh sách sẽ được cập nhật ở lần khởi chạy chương trình tiếp theo.");
+            alert.setContentText("Từ " + '"' + del + '"' + " đã được xóa.");
             alert.showAndWait();
         }
     }
