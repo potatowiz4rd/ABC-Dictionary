@@ -18,8 +18,6 @@ import java.net.URL;
 import java.util.*;
 import javax.speech.AudioException;
 import javax.speech.EngineException;
-import javax.swing.*;
-import java.util.stream.Collectors;
 
 import java.util.Locale;
 import javax.speech.Central;
@@ -63,14 +61,6 @@ public class DictionaryController implements Initializable {
             ExplainField.setText(data);
         }
     }
-
-
-    @FXML
-    void lookup(ActionEvent event) throws IOException {
-        String wordLookup = searchBar.getText();
-        ExplainField.setText(DictionaryManagement.dictionaryLookup(wordLookup));
-    }
-
 
     @FXML
     public void textToSpeech() throws EngineException, AudioException, InterruptedException {

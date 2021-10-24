@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
@@ -8,26 +13,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="background" stylesheets="@../StyleCustom/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController">
     <children>
-        <TextField fx:id="searchBar" layoutX="14.0" layoutY="23.0" onKeyReleased="#search" prefHeight="39.0" prefWidth="285.0" />
-        <ListView fx:id="myListView" layoutX="14.0" layoutY="63.0" onMouseClicked="#displaySelected" prefHeight="513.0" prefWidth="285.0" />
-        <Button layoutX="323.0" layoutY="23.0" mnemonicParsing="false" onAction="#lookup" prefHeight="39.0" prefWidth="108.0" text="Get Meaning" />
-        <Button fx:id="addButton" layoutX="640.0" layoutY="531.0" mnemonicParsing="false" onAction="#switchToSceneAdd" prefHeight="45.0" prefWidth="108.0" text="Add a word">
+        <TextField fx:id="searchBar" layoutX="34.0" layoutY="112.0" onKeyReleased="#search" prefHeight="65.0" prefWidth="702.0" promptText="Search your word here!" />
+        <ListView fx:id="myListView" layoutX="34.0" layoutY="194.0" onMouseClicked="#displaySelected" prefHeight="467.0" prefWidth="301.0" />
+        <Button fx:id="addButton" layoutX="731.0" layoutY="616.0" mnemonicParsing="false" onAction="#switchToSceneAdd" prefHeight="45.0" prefWidth="108.0" style="-fx-background-radius: 30 0 0 30;" text="Add a word">
             <font>
                 <Font size="16.0" />
             </font></Button>
-        <Button fx:id="deleteButton" layoutX="757.0" layoutY="531.0" mnemonicParsing="false" onAction="#switchToSceneDelete" prefHeight="45.0" prefWidth="123.0" text="Delete a word">
+        <Button fx:id="deleteButton" layoutX="842.0" layoutY="616.0" mnemonicParsing="false" onAction="#switchToSceneDelete" prefHeight="45.0" prefWidth="123.0" style="-fx-background-radius: 0 30 30 0;" text="Delete a word">
             <font>
                 <Font size="16.0" />
             </font>
         </Button>
-      <TextArea fx:id="ExplainField" layoutX="323.0" layoutY="63.0" prefHeight="464.0" prefWidth="563.0" wrapText="true">
+      <TextArea fx:id="ExplainField" layoutX="354.0" layoutY="195.0" prefHeight="409.0" prefWidth="611.0" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></TextArea>
-      <ComboBox fx:id="Language" layoutX="763.0" layoutY="23.0" onAction="#translation" prefHeight="39.0" prefWidth="123.0" promptText="Language" />
-      <Button fx:id="voice" layoutX="441.0" layoutY="23.0" mnemonicParsing="false" onAction="#textToSpeech" prefHeight="39.0" prefWidth="43.0" />
-      <Button fx:id="GGTranslate" layoutX="323.0" layoutY="531.0" mnemonicParsing="false" onAction="#translation" prefHeight="45.0" prefWidth="146.0" text="Google Translation" />
+      <ComboBox fx:id="Language" layoutX="842.0" layoutY="112.0" onAction="#translation" prefHeight="65.0" prefWidth="123.0" promptText="Language" />
+      <Button id="speakerButton" fx:id="voice" layoutX="753.0" layoutY="111.0" mnemonicParsing="false" onAction="#textToSpeech" prefHeight="64.0" prefWidth="64.0" stylesheets="@../StyleCustom/application.css" />
+      <Button fx:id="GGTranslate" layoutX="354.0" layoutY="616.0" mnemonicParsing="false" onAction="#translation" prefHeight="45.0" prefWidth="146.0" text="Google Translation" />
+      <ImageView fitHeight="86.0" fitWidth="283.0" layoutX="707.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../StyleCustom/twitter_header_photo_1.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

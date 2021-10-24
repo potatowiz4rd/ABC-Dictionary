@@ -1,0 +1,7 @@
+.background {
+    -fx-background-color: #7fffd4;
+}
+
+#speakerButton {
+    -fx-background-image: url("/StyleCustom/speaker.jpg");
+}
