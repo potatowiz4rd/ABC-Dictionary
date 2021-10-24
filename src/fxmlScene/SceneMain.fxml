@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="background" stylesheets="@../StyleCustom/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" styleClass="background" stylesheets="@../StyleCustom/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController">
     <children>
-        <TextField fx:id="searchBar" layoutX="34.0" layoutY="112.0" onKeyReleased="#search" prefHeight="65.0" prefWidth="702.0" promptText="Search your word here!" />
-        <ListView fx:id="myListView" layoutX="34.0" layoutY="194.0" onMouseClicked="#displaySelected" prefHeight="467.0" prefWidth="301.0" />
-        <Button fx:id="addButton" layoutX="731.0" layoutY="616.0" mnemonicParsing="false" onAction="#switchToSceneAdd" prefHeight="45.0" prefWidth="108.0" style="-fx-background-radius: 30 0 0 30;" text="Add a word">
+        <TextField fx:id="searchBar" layoutX="354.0" layoutY="121.0" onKeyReleased="#search" prefHeight="49.0" prefWidth="382.0" promptText="Search your word here!" />
+        <ListView fx:id="myListView" editable="true" layoutX="34.0" layoutY="121.0" onMouseClicked="#displaySelected" prefHeight="540.0" prefWidth="301.0" />
+        <Button fx:id="addButton" layoutX="1069.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchToSceneAdd" prefHeight="56.0" prefWidth="131.0" style="-fx-background-radius: 30 0 0 30; -fx-background-color: #d2691e; -fx-font-weight: bold;" text="Add a word" textFill="WHITE">
             <font>
                 <Font size="16.0" />
             </font></Button>
-        <Button fx:id="deleteButton" layoutX="842.0" layoutY="616.0" mnemonicParsing="false" onAction="#switchToSceneDelete" prefHeight="45.0" prefWidth="123.0" style="-fx-background-radius: 0 30 30 0;" text="Delete a word">
+        <Button fx:id="deleteButton" layoutX="1069.0" layoutY="132.0" mnemonicParsing="false" onAction="#switchToSceneDelete" prefHeight="56.0" prefWidth="131.0" style="-fx-background-radius: 30 0 0 30; -fx-background-color: #808080; -fx-font-weight: bold;" text="Delete a word" textFill="WHITE">
             <font>
                 <Font size="16.0" />
             </font>
         </Button>
-      <TextArea fx:id="ExplainField" layoutX="354.0" layoutY="195.0" prefHeight="409.0" prefWidth="611.0" wrapText="true">
+      <TextArea fx:id="ExplainField" layoutX="354.0" layoutY="183.0" prefHeight="480.0" prefWidth="611.0" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></TextArea>
-      <ComboBox fx:id="Language" layoutX="842.0" layoutY="112.0" onAction="#translation" prefHeight="65.0" prefWidth="123.0" promptText="Language" />
-      <Button id="speakerButton" fx:id="voice" layoutX="753.0" layoutY="111.0" mnemonicParsing="false" onAction="#textToSpeech" prefHeight="64.0" prefWidth="64.0" stylesheets="@../StyleCustom/application.css" />
-      <Button fx:id="GGTranslate" layoutX="354.0" layoutY="616.0" mnemonicParsing="false" onAction="#translation" prefHeight="45.0" prefWidth="146.0" text="Google Translation" />
-      <ImageView fitHeight="86.0" fitWidth="283.0" layoutX="707.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ComboBox fx:id="Language" layoutX="842.0" layoutY="120.0" onAction="#translation" prefHeight="49.0" prefWidth="123.0" promptText="Language" />
+      <Button id="speakerButton" fx:id="voice" layoutX="753.0" layoutY="119.0" mnemonicParsing="false" onAction="#textToSpeech" prefHeight="51.0" prefWidth="51.0" stylesheets="@../StyleCustom/application.css" />
+      <Button id="ggtrans" fx:id="GGTranslate" layoutX="808.0" layoutY="51.0" mnemonicParsing="false" onAction="#translation" prefHeight="56.0" prefWidth="157.0" stylesheets="@../StyleCustom/application.css" textFill="DEEPPINK" wrapText="true">
+         <font>
+            <Font name="Times New Roman Bold" size="16.0" />
+         </font></Button>
+      <ImageView fitHeight="86.0" fitWidth="283.0" layoutX="496.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../StyleCustom/twitter_header_photo_1.png" />
+            <Image url="@../StyleCustom/logo.png" />
          </image>
       </ImageView>
+      <MenuBar prefHeight="32.0" prefWidth="472.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+                  <MenuItem fx:id="howtouse" mnemonicParsing="false" onAction="#howUse" text="How to use" />
+              <MenuItem mnemonicParsing="false" onAction="#aboutUs" text="About Us" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
     </children>
 </AnchorPane>

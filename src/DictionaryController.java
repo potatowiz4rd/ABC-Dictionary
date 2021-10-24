@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -196,6 +197,10 @@ public class DictionaryController implements Initializable {
     @FXML
     Button deleteButton;  //nút chuyển sang cảnh xóa từ.
 
+    /**
+     * Chuyển sang cửa sổ thêm từ.
+     * @param event open add window.
+     */
     @FXML
     private void switchToSceneAdd(ActionEvent event) {
         try {
@@ -213,6 +218,10 @@ public class DictionaryController implements Initializable {
         }
     }
 
+    /**
+     * Chuyển sang cửa sổ xóa từ.
+     * @param event open delete window.
+     */
     @FXML
     void switchToSceneDelete(ActionEvent event) {
         try {
@@ -221,12 +230,58 @@ public class DictionaryController implements Initializable {
                 stage = new Stage();
                 scene = new Scene(root);
                 stage.setScene(scene);
-                stage.showAndWait();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initOwner(deleteButton.getScene().getWindow());
+                stage.showAndWait();
             }
         } catch (IOException ex) {
             System.out.println("Can't open");
+        }
+    }
+
+    /**
+     * Hàm đóng ứng dụng.
+     * @param event close application.
+     */
+    @FXML
+    public void close(ActionEvent event) {
+        Platform.exit();
+        System.exit(0);
+    }
+
+    /**
+     * Thông tin nhóm.
+     * @param event information about us.
+     */
+    @FXML
+    public void aboutUs(ActionEvent event) {
+        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About Us");
+        alert.setHeaderText(null);
+        alert.setContentText("@Copyright-This Dictionary was written by Hoang Quoc Cuong, Nguyen Xuan Bach and Duong Hung Anh");
+        alert.show();
+    }
+
+    @FXML
+    MenuItem howtouse;
+
+    /**
+     * Hướng dẫn sử dụng.
+     * @param event open tutorial window.
+     */
+    @FXML
+    public void howUse(ActionEvent event) {
+        try {
+            if (event.getSource() == howtouse) {
+                Parent root = FXMLLoader.load(getClass().getResource("fxmlScene/SceneTutorial.fxml"));
+                stage = new Stage();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
