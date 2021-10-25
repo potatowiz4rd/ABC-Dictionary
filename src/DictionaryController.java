@@ -120,7 +120,6 @@ public class DictionaryController implements Initializable {
         }
     }
 
-
     @FXML
     public void search() {
         String wordSearch = searchBar.getText().toString();
@@ -142,13 +141,20 @@ public class DictionaryController implements Initializable {
         return wordArray;
     }
 
+    /**
+     * Thay đổi nghĩa của từ.
+     * Sửa trực tiếp bằng tab giải nghĩa bên phải.
+     *
+     * @param event ENTER
+     */
     public void modifyMeaning(KeyEvent event) {
         ExplainField.setEditable(true);
         if (event.getCode().equals(KeyCode.ENTER)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Warning");
             alert.setHeaderText("Notification");
-            alert.setContentText("You have changed the meaning of this word.");
+            alert.setContentText("You have changed the meaning of this word." + "\n" +
+                    "\n" + "Reminder: If the word target uses the online API translation, your change will not be saved.");
             alert.showAndWait();
             alert.close();
 

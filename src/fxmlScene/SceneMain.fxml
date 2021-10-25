@@ -45,7 +45,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <MenuBar prefHeight="39.0" prefWidth="102.0">
+      <MenuBar prefHeight="39.0" prefWidth="124.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
