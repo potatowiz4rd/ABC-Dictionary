@@ -33,7 +33,7 @@ public class DictionaryController implements Initializable {
 
     @FXML
     private ComboBox<String> Language;
-    private ObservableList<String> languageList = FXCollections.observableArrayList("VI", "JA", "RU", "FR");
+    private final ObservableList<String> languageList = FXCollections.observableArrayList("VI", "JA", "RU", "FR");
 
     @FXML
     private TextField searchBar;
@@ -94,33 +94,6 @@ public class DictionaryController implements Initializable {
         }
     }
 
-    /**
-     * @throws IOException
-     * @FXML private void InsertFromFile() throws IOException {
-     * try {
-     * ArrayList<String> wordsFromFile = new ArrayList<>();
-     * BufferedReader reader = new BufferedReader(new FileReader("dictionaries.txt"));
-     * String line;
-     * while ((line = reader.readLine()) != null) {
-     * if (line.length() > 0 && line.contains("@")) {
-     * wordsFromFile.add(line);
-     * }
-     * }
-     * reader.close();
-     * <p>
-     * for (int i = 0; i < wordsFromFile.size(); i++) {
-     * String[] str = wordsFromFile.get(i).split("@");
-     * Word result = new Word(str[0].trim(), str[1].trim());
-     * Dictionary.WordTargets.add(i, str[0]);
-     * Dictionary.WordExplains.add(i, str[1]);
-     * Dictionary.WordList.add(result);
-     * }
-     * } catch (IOException e) {
-     * System.out.println(e);
-     * }
-     * }
-     */
-
     @FXML
     private void InsertFromFile() throws IOException {
         try {
@@ -140,7 +113,6 @@ public class DictionaryController implements Initializable {
                 Dictionary.WordTargets.add(i, str[0]);
                 Dictionary.WordExplains.add(i, str[1]);
                 Dictionary.WordList.add(result);
-                // Dictionary.WordTargets.add(i, wordsFromFile.get(i));
             }
         } catch (IOException e) {
             System.out.println(e);
@@ -186,7 +158,7 @@ public class DictionaryController implements Initializable {
             e.printStackTrace();
         }
         populateData();
-
+        Language.setValue("VI");
         Language.setItems(languageList);
 
     }
@@ -198,7 +170,7 @@ public class DictionaryController implements Initializable {
     Stage stage;
     Scene scene;
 
-    public void RefreshData(ActionEvent event)throws IOException{
+    public void RefreshData(ActionEvent event) throws IOException {
         myListView.getItems().clear();
         searchBar.clear();
         ExplainField.clear();
@@ -271,6 +243,7 @@ public class DictionaryController implements Initializable {
         Platform.exit();
         System.exit(0);
     }
+
 
     /**
      * Thông tin nhóm.
