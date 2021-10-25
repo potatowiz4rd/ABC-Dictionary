@@ -57,7 +57,8 @@ public class DictionaryController implements Initializable {
         InternetConnection ic = new InternetConnection();
         String data = ic.getOnlineData(word);
         if (data.equalsIgnoreCase("error")) {
-            ExplainField.setText("Word not found!");
+            //ExplainField.setText("Word not found!");
+            ExplainField.setText(DictionaryManagement.dictionaryLookup(myListView.getSelectionModel().getSelectedItem().toString()));
         } else {
             ExplainField.setText(data);
         }
@@ -134,7 +135,12 @@ public class DictionaryController implements Initializable {
             reader.close();
 
             for (int i = 0; i < wordsFromFile.size(); i++) {
-                Dictionary.WordTargets.add(i, wordsFromFile.get(i));
+                String[] str = wordsFromFile.get(i).split("#");
+                Word result = new Word(str[0].trim(), str[1].trim());
+                Dictionary.WordTargets.add(i, str[0]);
+                Dictionary.WordExplains.add(i, str[1]);
+                Dictionary.WordList.add(result);
+                // Dictionary.WordTargets.add(i, wordsFromFile.get(i));
             }
         } catch (IOException e) {
             System.out.println(e);
@@ -192,6 +198,20 @@ public class DictionaryController implements Initializable {
     Stage stage;
     Scene scene;
 
+    public void RefreshData(ActionEvent event)throws IOException{
+        myListView.getItems().clear();
+        searchBar.clear();
+        ExplainField.clear();
+        Dictionary.WordTargets.clear();
+        Dictionary.WordExplains.clear();
+        Dictionary.WordList.clear();
+        InsertFromFile();
+        populateData();
+    }
+
+    @FXML
+    Button refreshButton;
+
     @FXML
     Button addButton; //nút chuyển sang cảnh thêm từ.
     @FXML
@@ -199,6 +219,7 @@ public class DictionaryController implements Initializable {
 
     /**
      * Chuyển sang cửa sổ thêm từ.
+     *
      * @param event open add window.
      */
     @FXML
@@ -220,6 +241,7 @@ public class DictionaryController implements Initializable {
 
     /**
      * Chuyển sang cửa sổ xóa từ.
+     *
      * @param event open delete window.
      */
     @FXML
@@ -241,6 +263,7 @@ public class DictionaryController implements Initializable {
 
     /**
      * Hàm đóng ứng dụng.
+     *
      * @param event close application.
      */
     @FXML
@@ -251,11 +274,12 @@ public class DictionaryController implements Initializable {
 
     /**
      * Thông tin nhóm.
+     *
      * @param event information about us.
      */
     @FXML
     public void aboutUs(ActionEvent event) {
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About Us");
         alert.setHeaderText(null);
         alert.setContentText("@Copyright-This Dictionary was written by Hoang Quoc Cuong, Nguyen Xuan Bach and Duong Hung Anh");
@@ -267,6 +291,7 @@ public class DictionaryController implements Initializable {
 
     /**
      * Hướng dẫn sử dụng.
+     *
      * @param event open tutorial window.
      */
     @FXML
@@ -285,4 +310,3 @@ public class DictionaryController implements Initializable {
         }
     }
 }
-

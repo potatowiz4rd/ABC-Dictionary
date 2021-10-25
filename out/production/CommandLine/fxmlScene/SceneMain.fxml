@@ -34,6 +34,7 @@
             <Image url="@../StyleCustom/logo.png" />
          </image>
       </ImageView>
+      <Button fx:id="refreshButton" layoutX="972.0" layoutY="183.0" mnemonicParsing="false" onAction="#RefreshData" text="R" />
       <MenuBar prefHeight="32.0" prefWidth="472.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">

@@ -9,11 +9,11 @@ public class DictionaryManagement {
     public static void exportToFile() {
         PrintWriter writer = null;
         try {
-            FileWriter write = new FileWriter("dictionaries.txt");
+            FileWriter write = new FileWriter("dictionaries2.txt");
             writer = new PrintWriter(write);
             for (int i = 0; i < Dictionary.WordList.size(); i++) {
                 Word outfile = Dictionary.WordList.get(i);
-                writer.println(outfile.getWord_target() + "@" + outfile.getWord_explain());
+                writer.println(outfile.getWord_target() + "#" + outfile.getWord_explain());
             }
             writer.close();
         } catch (IOException ex) {
