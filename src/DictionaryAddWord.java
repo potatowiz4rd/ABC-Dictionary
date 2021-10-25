@@ -17,24 +17,36 @@ public class DictionaryAddWord {
         if (event.getSource() == add_button) {
             String word = fieldAddTarget.getText();
             String meaning = fieldAddMeaning.getText();
-            if (word.length() > 0 && meaning.length() > 0) {
+            boolean check = true;
+            for (int i = 0; i < Dictionary.WordTargets.size(); i++) {
+                if (word.equalsIgnoreCase(Dictionary.WordTargets.get(i))) {
+                    check = false;
+                }
+            }
+            if (!check) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops!");
+                alert.setHeaderText(null);
+                alert.setContentText("Từ bạn muốn thêm đã tồn tại!");
+                alert.showAndWait();
+            } else if (word.equals("") || meaning.equals("")) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Oops!");
+                alert.setHeaderText(null);
+                alert.setContentText("Xin hãy nhập từ mới và nghĩa.");
+                alert.showAndWait();
+            } else if (check) {
                 List<String> newWord = addTheWord(word, meaning);
                 DictionaryManagement.exportToFile();
                 newWord.clear();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("HEY!");
+                alert.setHeaderText(null);
+                alert.setContentText("Bạn đã thêm từ  " + '"' + word + '"' + " với ý nghĩa là " + '"' + meaning + '"' + ".");
+                alert.showAndWait();
+                fieldAddTarget.clear();
+                fieldAddMeaning.clear();
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("HEY!");
-            alert.setHeaderText(null);
-            alert.setContentText("Bạn đã thêm từ  " + '"' + word + '"' + " với ý nghĩa là " + '"' + meaning + '"' + ".");
-            alert.showAndWait();
-            fieldAddTarget.clear();
-            fieldAddMeaning.clear();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Oops!");
-            alert.setHeaderText(null);
-            alert.setContentText("Xin hãy nhập từ mới và nghĩa.");
-            alert.showAndWait();
         }
     }
 

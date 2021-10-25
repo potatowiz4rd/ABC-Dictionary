@@ -5,6 +5,7 @@ import java.net.URL;
 public class InternetConnection {
     /**
      * Send request to website.
+     *
      * @param word Word requested for meaning;
      * @return Meaning.
      */
@@ -28,16 +29,10 @@ public class InternetConnection {
                 decodedData = jd.Decoder(data);
             } else {
                 decodedData = "error";
-                //System.out.println("Connection ERROR!");
             }
 
         } catch (Exception e) {
-            try {
-                //decodedData = "error";
-                System.out.println(e);
-            } catch (Exception e1) {
-                System.out.println(e1);
-            }
+            System.out.println(e);
         }
         return decodedData;
     }

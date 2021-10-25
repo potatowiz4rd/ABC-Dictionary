@@ -29,8 +29,13 @@ public class JSONDecoder {
             if (!(ex == null)) {
                 deData = deData + "\n + Synonyms: ";
                 for (int i = 0; i < ex.size(); i++) {
-                    deData = deData + "\n \t " + ex.get(i);
+                    if (i == 0) {
+                        deData = deData + ex.get(i);
+                    } else {
+                        deData = deData + ", " + ex.get(i);
+                    }
                 }
+                deData = deData + ".";
             }
 
             JSONObject PartOfSpeech2 = (JSONObject) meaning.get(1);
@@ -44,8 +49,13 @@ public class JSONDecoder {
             if (!(ex2 == null)) {
                 deData = deData + "\n + Synonyms: ";
                 for (int i = 0; i < ex2.size(); i++) {
-                    deData = deData + "\n \t " + ex2.get(i);
+                    if (i == 0) {
+                        deData = deData + ex2.get(i);
+                    } else {
+                        deData = deData + ", " + ex2.get(i);
+                    }
                 }
+                deData = deData + ".";
             }
 
         } catch (Exception e) {
