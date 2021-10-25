@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -78,7 +80,6 @@ public class DictionaryController implements Initializable {
         synthesizer.speakPlainText(wordSpeech, null);
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
 
-        //Deallocate synthesizer
         //synthesizer.deallocate();
     }
 
@@ -139,6 +140,28 @@ public class DictionaryController implements Initializable {
         }
         Collections.sort(wordArray);
         return wordArray;
+    }
+
+    public void modifyMeaning(KeyEvent event) {
+        ExplainField.setEditable(true);
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Notification");
+            alert.setContentText("You have changed the meaning of this word.");
+            alert.showAndWait();
+            alert.close();
+
+            String word = searchBar.getText();
+            String meaning = ExplainField.getText();
+            Word line = new Word(word, meaning);
+            for (int i = 0; i < Dictionary.WordList.size(); i++) {
+                if (Dictionary.WordList.get(i).getWord_target().equals(word)) {
+                    Dictionary.WordList.set(i, line);
+                }
+            }
+            DictionaryManagement.exportToFile();
+        }
     }
 
     @FXML
