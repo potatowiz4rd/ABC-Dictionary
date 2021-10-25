@@ -23,9 +23,9 @@
          <font>
             <Font size="18.0" />
          </font></TextArea>
-      <ComboBox fx:id="Language" layoutX="773.0" layoutY="121.0" onAction="#translation" prefHeight="49.0" prefWidth="124.0" promptText="Language" />
-      <Button id="speakerButton" fx:id="voice" alignment="CENTER" layoutX="700.0" layoutY="115.0" mnemonicParsing="false" onAction="#textToSpeech" prefHeight="56.0" prefWidth="64.0" stylesheets="@../StyleCustom/application.css" />
-      <Button id="ggtrans" fx:id="GGTranslate" layoutX="814.0" layoutY="45.0" mnemonicParsing="false" onAction="#translation" prefHeight="65.0" prefWidth="71.0" stylesheets="@../StyleCustom/application.css" textFill="DEEPPINK" wrapText="true">
+      <ComboBox fx:id="Language" layoutX="788.0" layoutY="121.0" onAction="#translation" prefHeight="49.0" prefWidth="124.0" promptText="Language" />
+      <Button id="speakerButton" fx:id="voice" alignment="CENTER" layoutX="700.0" layoutY="106.0" mnemonicParsing="false" onAction="#textToSpeech" prefHeight="65.0" prefWidth="73.0" stylesheets="@../StyleCustom/application.css" />
+      <Button id="ggtrans" fx:id="GGTranslate" layoutX="918.0" layoutY="121.0" mnemonicParsing="false" onAction="#translation" prefHeight="49.0" prefWidth="57.0" stylesheets="@../StyleCustom/application.css" textFill="DEEPPINK" wrapText="true">
          <font>
             <Font name="Times New Roman Bold" size="16.0" />
          </font></Button>
@@ -34,11 +34,11 @@
             <Image url="@../StyleCustom/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="refreshButton" alignment="CENTER" contentDisplay="CENTER" layoutX="920.0" layoutY="183.0" mnemonicParsing="false" onAction="#RefreshData" prefHeight="39.0" prefWidth="25.0" text="⟲" textAlignment="CENTER">
+      <Button fx:id="refreshButton" alignment="CENTER" contentDisplay="CENTER" layoutX="918.0" layoutY="183.0" mnemonicParsing="false" onAction="#RefreshData" prefHeight="56.0" prefWidth="57.0" text="⟲" textAlignment="CENTER">
          <font>
-            <Font size="35.0" />
+            <Font size="24.0" />
          </font></Button>
-      <MenuBar prefHeight="21.0" prefWidth="131.0">
+      <MenuBar prefHeight="39.0" prefWidth="102.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
