@@ -51,6 +51,10 @@ public class DictionaryController implements Initializable {
     @FXML
     private Button GGTranslate;
 
+    /**
+     * Nhấn vào từ trên List ra nghĩa.
+     * @param event display meaning.
+     */
     @FXML
     private void displaySelected(MouseEvent event) {
         searchBar.setText(myListView.getSelectionModel().getSelectedItem().toString());
@@ -59,13 +63,18 @@ public class DictionaryController implements Initializable {
         InternetConnection ic = new InternetConnection();
         String data = ic.getOnlineData(word);
         if (data.equalsIgnoreCase("error")) {
-            //ExplainField.setText("Word not found!");
             ExplainField.setText(DictionaryManagement.dictionaryLookup(myListView.getSelectionModel().getSelectedItem().toString()));
         } else {
             ExplainField.setText(data);
         }
     }
 
+    /**
+     * Đọc từ được chọn.
+     * @throws EngineException handle exception.
+     * @throws AudioException handle exception.
+     * @throws InterruptedException handle exception.
+     */
     @FXML
     public void textToSpeech() throws EngineException, AudioException, InterruptedException {
         String wordSpeech = searchBar.getText();
@@ -79,10 +88,11 @@ public class DictionaryController implements Initializable {
 
         synthesizer.speakPlainText(wordSpeech, null);
         synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-
-        //synthesizer.deallocate();
     }
 
+    /**
+     * Dịch nghĩa từ dùng GG trans.
+     */
     @FXML
     public void translation() {
         String selectedLanguage = Language.getSelectionModel().getSelectedItem().toLowerCase();
@@ -95,6 +105,10 @@ public class DictionaryController implements Initializable {
         }
     }
 
+    /**
+     * Nạp dữ liệu từ.
+     * @throws IOException handle exception.
+     */
     @FXML
     private void InsertFromFile() throws IOException {
         try {
@@ -120,6 +134,9 @@ public class DictionaryController implements Initializable {
         }
     }
 
+    /**
+     * Tìm từ được nhập.
+     */
     @FXML
     public void search() {
         String wordSearch = searchBar.getText().toString();
@@ -129,7 +146,11 @@ public class DictionaryController implements Initializable {
         wordArray.clear();
     }
 
-
+    /**
+     * Tìm trong từ điển.
+     * @param wordSearch search.
+     * @return word.
+     */
     @FXML
     public static List<String> dictionarySearch(String wordSearch) {
         for (int i = 0; i < Dictionary.WordTargets.size(); i++) {
@@ -192,6 +213,9 @@ public class DictionaryController implements Initializable {
 
     }
 
+    /**
+     * In ra toàn bộ từ.
+     */
     private void populateData() {
         myListView.getItems().addAll(Dictionary.WordTargets);
     }
@@ -199,6 +223,11 @@ public class DictionaryController implements Initializable {
     Stage stage;
     Scene scene;
 
+    /**
+     * làm mới lại chương trình.
+     * @param event refresh data.
+     * @throws IOException handle exception.
+     */
     public void RefreshData(ActionEvent event) throws IOException {
         myListView.getItems().clear();
         searchBar.clear();
